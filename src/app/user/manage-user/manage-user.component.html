@@ -1,0 +1,130 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{id ? 'Edit Profile' : 'Register'}}</h4>
+  <button type="button" class="close modal-title" aria-label="Close" (click)="activeModal.close({success: false})">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+<div class="modal-body">
+  <div class="card">
+   
+      <div class="row">
+        <div class="col-md-3">
+          <div class="row">
+            <img [src]="registerForm.get('image').value ? registerForm.get('image').value: '../../assets/images/user-default-img.jfif'" style="height: 180px;width:180px">
+            <!-- <p class="upload-photo">Upload Your Photo</p> -->
+            <!-- <button type="button" class="btn btn-primary" (click)="onclickUploadPhoto(template)">Create template modal</button> -->
+            <input type="file" formConrolName="image" placeholder="Upload Your Photo"  (change)="onFileSelected($event)" accept=".jpg,.png" > 
+           <div class="validation-message" *ngIf="validationField('invalidImage','image1')">
+            Please select valid Image
+             </div>
+            <!-- <span *ngIf="form.get('import_file').value">{{fileData?.name}}</span> -->
+            </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group mb-3">
+                <input type="text" id="fname" class="form-control" placeholder="First Name" formControlName="fname">
+              </div>
+              <div class="validation-message" *ngIf="validationField('required','fname')">
+                First Name is required
+              </div>
+              <div class="validation-message" *ngIf="validationField('invalid','fname')">
+               Name should contain alphabetic character with limit 20 characters.
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="input-group mb-3">
+                <input type="text" id="lname" class="form-control" placeholder="Last Name" formControlName="lname">
+                <div class="validation-message" *ngIf="validationField('required','lname')">
+                  Last Name is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12  mb-3">
+              <input type="email" id="email" class="form-control" placeholder="Email" formControlName="email">
+              <div class="validation-message" *ngIf="validationField('required','email')">
+                Email is required
+              </div>
+              <div class="validation-message" *ngIf="validationField('email','email')">
+                Enter valid email              </div>
+            </div>
+            <div class="col-md-12  mb-3">
+              <input type="text" id="mobile" class="form-control" placeholder="(541)754-3010" formControlName="mobile">
+              <div class="validation-message" *ngIf="validationField('required','mobile')">
+                Mobile is required
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              Age
+              <mat-slider thumbLabel tickInterval="1000" min="20" max="60" formControlName="age" ></mat-slider>
+            </div>
+            <div class="col-md-12  mb-3">
+              <select class="form-control" formControlName="country">
+                <option value="">Country</option>
+                <option value="india">India</option>
+                <option value="usa">USA</option>
+                <option value="chin">Chin</option>
+              </select>
+            </div>
+            <div class="col-md-12  mb-3">
+              <select class="form-control" formControlName="state">
+                <option value="">State</option>
+                <option value="maharashtra">Maharashtra</option>
+                <option value="gujarat">Gujarat</option>
+                <option value="delhi">Delhi</option>
+              </select>
+            </div>
+  
+           
+            <div class="col-md-12  mb-3">
+              <select class="form-control" formControlName="address">
+                <option value="">Address</option>
+                <option value="home">Home</option>
+                <option value="Company">Company</option>
+              </select>
+            </div>
+            <ng-container *ngIf="registerForm.get('address').value">
+              <div class="col-md-12 mb-3">
+                <input type="text"  class="form-control" [placeholder]="registerForm.get('address').value=='home' ? 'Address 1' : 'Company Address 1'" formControlName="address1">
+              </div>
+              <div class="col-md-12 mb-3">
+                <input type="text"  class="form-control"  [placeholder]="registerForm.get('address').value=='home' ? 'Address 2' : 'Company Address 2'" formControlName="address2">
+              </div>
+               </ng-container>
+  
+            <div class="col-md-12 mb-3">
+              <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Interests">
+                  <mat-chip *ngFor="let item of interestList" [selectable]="selectable"
+                           [removable]="removable" (removed)="remove(item)">
+                    {{item}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="Enter Interests"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)"
+                         formControlName="interests">
+                </mat-chip-list>
+              </mat-form-field>
+  
+            </div>
+            <div class="col-md-12  mb-3">
+              <input type="checkbox" formControlName="ischeck"> Subscribe to newsletter
+            </div>
+            <!-- <pre>{{registerForm.value | json}}</pre> -->
+          </div>
+        </div>
+      </div>
+  
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({success: false})">Cancel</button>
+  <button type="submit" class="button btn btn-outline-dark" >Submit</button>
+</div>
+</form>

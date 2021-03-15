@@ -1,0 +1,58 @@
+<!-- <div  class="swiper-container" [swiper]="config" [(index)]="index">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let item of slideImages">
+            <img [src]="item.name" [alt]="item.altText">
+        </div>
+        </div>
+   
+   
+  </div> -->
+  <div class="wrapper">
+    <swiper [config]="config">
+        <div class="swiper-slide" *ngFor="let item of slideImages">
+            <a [style.backgroundImage]="'url('+item.name+')'">
+                <div class="content-wrapper">
+                  
+                    <div class="details">
+                        <h3>I'm looking for..</h3>
+                        <div class="top">
+                            <input placeholder="Enter a Job Description">
+                            <button class="button"><i class="fa fa-search"></i> Search</button>
+                        </div>
+                        <div class="bottom">
+                            <div class="type">
+                            <input type="checkbox" name="fulltime" > Full Time
+                            <input type="checkbox" name="partcasual" value="Bike"> Part Time / Casual / Freelance
+                            </div>
+                            <select name="slct" id="slct">
+                                <option >Select your Location</option>
+                                <option value="1">Mumbai</option>
+                                <option value="2">Thane</option>
+                                <option value="3">Pune</option>
+                            </select>
+                        </div>
+                      <div class="register">
+                        <button class="button" (click)="onRegisterClick()"> Register </button>
+                      </div>
+                       </div>
+                </div>
+            </a>
+        </div>
+       </swiper>
+  </div>
+   <div class="swiper-pagination"></div>
+   <span class="break"></span>
+   <div class="leaders">
+    <div class="info">
+        <h4>We're leaders in</h4>
+        <h3>Creative Digital Recruitment</h3>
+        <span class="line-break"></span>
+        <p>Based in Surry Hills,the creative hub of Sydney. We are surrounded by creativity and reflects on the type of jobs we recruit for.</p>
+        <a class="anchor"> FIND OUT MORE ABOUT US </a>
+    </div>
+   </div>
+   <span class="break"></span>
+
+    
+   
+   

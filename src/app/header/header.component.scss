@@ -1,0 +1,36 @@
+.main-header {
+	background: #4dc7ff;
+	.container {
+		.logo a {
+		font-size: 20px;
+		color: black;	
+		}
+		width: 1200px;
+		max-width: 100%;
+		padding: 20px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		.main-nav  {
+			ul {
+				margin: 1em 0 .5em;
+				text-align: center;
+				li {
+				
+					display: inline;
+					a {
+						color:#fff;
+						font-weight: 500;
+						display: inline-block;
+						padding: .5em 1.5em;
+					    cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
+
+

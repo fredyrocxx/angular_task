@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "fname": "sandesh",
+      "lname": "sarfare",
+      "email": "sandesh10.88@gmail.com",
+      "mobile": "541 754-3010",
+      "age": 25,
+      "state": "maharashtra",
+      "country": "india",
+      "address": "home",
+      "address1": "Test",
+      "address2": "test",
+      "interests": [
+        "cricket"
+      ],
+      "image": null,
+      "image1": null,
+      "ischeck": true,
+      "id": 1
+    }
+  ]
+}
