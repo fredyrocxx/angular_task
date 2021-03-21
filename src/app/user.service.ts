@@ -19,9 +19,14 @@ export class UserService {
   constructor(private _http: HttpClient) { }
 
   addUsers(user: User): Observable<User> {
-    return  this._http.post<User>(`${localUrl}/users`, user, httpOptions);
+    
+    return  this._http.post<User>(`${localUrl}/users/`, user, httpOptions);
   }
 
+  getUserData(id): Observable<User> {
+    
+    return  this._http.get<User>(`${localUrl}/users?id=`+ id, httpOptions);
+  }
  
 
 }

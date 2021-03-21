@@ -1,3 +1,4 @@
+
 <div class="modal-header">
   <h4 class="modal-title">{{id ? 'Edit Profile' : 'Register'}}</h4>
   <button type="button" class="close modal-title" aria-label="Close" (click)="activeModal.close({success: false})">
@@ -14,9 +15,11 @@
             <img [src]="registerForm.get('image').value ? registerForm.get('image').value: '../../assets/images/user-default-img.jfif'" style="height: 180px;width:180px">
             <!-- <p class="upload-photo">Upload Your Photo</p> -->
             <!-- <button type="button" class="btn btn-primary" (click)="onclickUploadPhoto(template)">Create template modal</button> -->
-            <input type="file" formConrolName="image" placeholder="Upload Your Photo"  (change)="onFileSelected($event)" accept=".jpg,.png" > 
+            <div class="validation-message">
+            <input type="file" formConrolName="image" placeholder="Upload Your Photo"  (change)="onFileSelected($event)" accept=".jpg,.png" >{{imageError}} 
+          </div>
            <div class="validation-message" *ngIf="validationField('invalidImage','image1')">
-            Please select valid Image
+            Please select valid Image of size :310*325px
              </div>
             <!-- <span *ngIf="form.get('import_file').value">{{fileData?.name}}</span> -->
             </div>
@@ -125,6 +128,8 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({success: false})">Cancel</button>
-  <button type="submit" class="button btn btn-outline-dark" >Submit</button>
+  <a routerLink="/user-profile/:id">submit1</a>
+<!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({success: false})">submit</button> -->
+ <button type="submit" class="button btn btn-outline-dark" >Submit</button>
 </div>
 </form>

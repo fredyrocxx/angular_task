@@ -45,14 +45,25 @@ export class HomeComponent implements OnInit {
   onRegisterClick() {
    const modal= this._modalCtrl.open(ManageUserComponent,{size: 'lg'});
    modal.componentInstance.id=null; 
-   modal.componentInstance.section='profile-data'; 
+   modal.componentInstance.section='profile-data';
+   console.log(modal.result); 
    modal.result.then(result=>{
+    console.log(1);
      if(result.success) {
-      this._router.navigate([`/manage-user/${result.id}`])
+      console.log(2);
+       console.log(result.id);
+      // this._router.navigate([`/manage-user/${result.id}`])
+      this._router.navigate([`/user-profile/:id`])
      }
+     
+    //  else{
+    //    console.log(3);
+    //   this._router.navigate([`/manage-user/38`])
+    //  }
    },err=> {
      console.log(err);
    })
+
 
   }
 

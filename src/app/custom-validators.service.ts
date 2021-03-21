@@ -3,7 +3,8 @@ export class CustomValidators extends Validators {
 
   static validateImage(control: FormControl) {
     if (control.value && control.value.length > 0) {
-      console.log(control.value)
+      console.log(control.value);
+      console.log(control.value.file);
       if (control.value.endsWith('.png') || control.value.endsWith('.jpg') || control.value.endsWith('.jpeg') ||control.value.endsWith('.PNG')) {
         console.log("if")
         return null;

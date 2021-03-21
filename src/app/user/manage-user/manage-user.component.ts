@@ -19,6 +19,7 @@ import { CustomValidators } from 'src/app/custom-validators.service';
   styleUrls: ['./manage-user.component.scss']
 })
 export class ManageUserComponent implements OnInit {
+  imageError : string;
   registerForm: FormGroup;
   userList: any = [];
   message: string;
@@ -62,6 +63,7 @@ export class ManageUserComponent implements OnInit {
         this._userservice.addUsers(this.registerForm.value).subscribe(data => {
           console.log(data)
           this.activeModal.close({success: true,id: data.id})
+          this._router.navigate(['/user-profile'])
          },err => {
           console.log(err)
         });
@@ -69,18 +71,89 @@ export class ManageUserComponent implements OnInit {
     }
 
   }
-  onFileSelected(event: Event) {
-    const file = (<HTMLInputElement>event.target).files[0];
-    if (file) {
-      this.registerForm.get('image1').patchValue(file.name);
-      var reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
 
-    }
-  }
+  // onFileSelected(event: Event) {
+  //   const file = (<HTMLInputElement>event.target).files[0];
+  //   if (file) {
+  //     this.registerForm.get('image1').patchValue(file.name);
+  //     var reader = new FileReader();
+  //     reader.onload = this._handleReaderLoaded.bind(this);
+  //     reader.readAsBinaryString(file);
+
+  //   }
+  //   onChange(event: Event) {
+  //     const URL = window.URL || window.webkitURL;
+  //     const Img = new Image();
+  
+  //     const file = (<HTMLInputElement>.event.target).files[0];
+  //     Img.src = URL.createObjectURL(filesToUpload[0]);w
+  
+  //     Img.onload = (e: any) => {
+  //       const height = e.path[0].height;
+  //       const width = e.path[0].width;
+  
+  //       console.log(height,width);
+  //   }
+
+  // }
+
+  onFileSelected(event: Event) {
+    this.imageError=null;
+    window.URL = window.URL;
+    const file = (<HTMLInputElement>event.target).files[0];
+    console.log(1);
+    if (file) {
+      
+      this.registerForm.get('image1').patchValue(file.name);
+      // var readerr = new FileReader();
+      const img = new Image();
+       img.src = window.URL.createObjectURL( file );
+       console.log(2);
+       const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // const img = new Image();
+        img.src = reader.result as string;
+        img.onload = () => {
+          const height = img.naturalHeight;
+          const width = img.naturalWidth;
+          if( width > 310 && height > 325 ) {
+                 console.log(width); 
+                 console.log(height);
+                 this.registerForm.get('image').patchValue('../../assets/images/user-default-img.jfif');
+                   this.imageError=("Please upload an image with in 310*325px resolution");
+                 } 
+          console.log('Width and Height', width, height);
+        } ;
+      };
+      //  readerr.onload = () => {
+      //    console.log(3);
+      //    setTimeout(() => {
+      //    const width = img.naturalWidth;
+      //    const height = img.naturalHeight;
+
+      //    window.URL.revokeObjectURL( img.src );
+      //   console.log(width); 
+      //     console.log(height);
+      //    if( width > 310 && height > 325 ) {
+      //     console.log(width); 
+      //     console.log(height);
+          
+      //       alert("photo should be 310 x 325 size");
+      //     }   
+      //    }, 2000);
+        
+      //    };
+         console.log(4);
+       var readerr = new FileReader();
+       readerr.onload = this._handleReaderLoaded.bind(this);
+       readerr.readAsBinaryString(file);
+      }
+      }
+  
 
   _handleReaderLoaded(readerEvt) {
+    console.log(5);
     var binaryString = readerEvt.target.result;
     this.registerForm.get('image').patchValue('data:image/png;base64,' + btoa(binaryString));
   }
