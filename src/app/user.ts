@@ -9,5 +9,7 @@ export interface User {
   state:string;
   country:string;
   address:string;
+  address1:string;
+  address2:string;
   ischeck:boolean;
 }
