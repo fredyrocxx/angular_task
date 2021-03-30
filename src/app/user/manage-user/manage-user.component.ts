@@ -19,9 +19,11 @@ import { CustomValidators } from 'src/app/custom-validators.service';
   styleUrls: ['./manage-user.component.scss']
 })
 export class ManageUserComponent implements OnInit {
+
   imageError : string;
   registerForm: FormGroup;
-  userList: any = [];
+  userDetailsedit : User;
+  // userList: any = [];
   message: string;
   interestList: string[] = [];
   visible = true;
@@ -51,19 +53,61 @@ export class ManageUserComponent implements OnInit {
       image1: new FormControl(null, CustomValidators.validateImage),
       ischeck: new FormControl('', [Validators.required])
     });
+    console.log('ng on init');
+    console.log(this._userservice.editId);
+    this.id=this._userservice.editId;
+    if (this.id)
+    {
+
+      console.log(this.id);
+      this.getUpdatedUser();
+    }
+     
+
+      
   }
+
+  getUpdatedUser(){
+    this._userservice.getUserData(this.id).subscribe(data=>{
+      console.log(data);
+      this.userDetailsedit=data[0];
+      console.log(this.userDetailsedit);
+    })
+    this.registerForm.patchValue({
+      fname: this.userDetailsedit.fname,
+      lname: this.userDetailsedit.lname,
+      email: this.userDetailsedit.email,
+      mobile: this.userDetailsedit.mobile,
+      state: this.userDetailsedit.state,
+      country: this.userDetailsedit.country
+
+   })
+}
 
   onSubmit() {
     this.formSubmit = true;
    if (this.id) {
-
+    if (this.registerForm.valid) {
+      this._userservice.updateUser(this.registerForm.value,this.id).subscribe(data => {
+        console.log(data)
+        this.activeModal.close({success: true,id: data.id})
+        this.getUpdatedUser() 
+        this._router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+          this._router.navigate(['user-profile']);
+      });
+        
+        // this._router.navigate(['/user-profile/'])
+       },err => {
+        console.log(err)
+      });
+    }
     }
     else {
       if (this.registerForm.valid) {
         this._userservice.addUsers(this.registerForm.value).subscribe(data => {
           console.log(data)
           this.activeModal.close({success: true,id: data.id})
-          this._router.navigate(['/user-profile'])
+          // this._router.navigate(['/user-profile/'])
          },err => {
           console.log(err)
         });
@@ -150,6 +194,7 @@ export class ManageUserComponent implements OnInit {
        readerr.readAsBinaryString(file);
       }
       }
+      
   
 
   _handleReaderLoaded(readerEvt) {
@@ -195,4 +240,28 @@ export class ManageUserComponent implements OnInit {
         this.formSubmit)
     );
   }
+
+  // editUser(userDetails,id){
+  //   console.log(this.userDetails.id);
+  //   this.registerForm.patchValue({
+  //     fname: this.userDetails.fname,
+  //     lname: this.userDetails.lname
+
+  //   })
+    
+    
+  //   // if (id)
+  //   // {
+  //   //   this._userservice.updateUser(this.userDetails.id).subscribe(data=>{
+  //   //     alert(this.userDetails.fname + 'has been updated');
+  //   //     this.userDetails=data;
+  //   //   })
+
+  //   // }else{
+  //   //   this._userservice.addUsers(this.userDetails.id).subscribe(data=>{
+  //   //     alert(this.userDetails.fname + 'has been added');
+  //   //     this.userDetails=data;
+  //   //   })
+  //   // }
+  // }
 }

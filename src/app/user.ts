@@ -5,6 +5,7 @@ export interface User {
   email:string;
   mobile:number;
   age:number;
+  image:string;
   state:string;
   country:string;
   address:string;

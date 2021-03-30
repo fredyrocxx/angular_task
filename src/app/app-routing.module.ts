@@ -11,6 +11,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   { path: 'user-profile/:id', component: UserProfileComponent },
+  { path: 'user-profile/', component: UserProfileComponent },
   { path: 'manage-user', component: ManageUserComponent },
  
   { path: '**', redirectTo: '/home' }

@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
       console.log(2);
        console.log(result.id);
       // this._router.navigate([`/manage-user/${result.id}`])
-      this._router.navigate([`/user-profile/:id`])
+      this._router.navigate([`/user-profile/${result.id}`])
      }
      
     //  else{
